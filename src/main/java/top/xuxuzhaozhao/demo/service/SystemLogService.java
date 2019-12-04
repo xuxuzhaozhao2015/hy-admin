@@ -6,7 +6,7 @@ import top.xuxuzhaozhao.demo.core.universal.Service;
 /**
 * @Description: SystemLogService接口
 * @author xcy
-* @date 2019/12/04 15:51
+* @date 2019/12/04 16:09
 */
 public interface SystemLogService extends Service<SystemLog> {
 }

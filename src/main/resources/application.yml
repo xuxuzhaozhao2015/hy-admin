@@ -2,10 +2,11 @@ server:
   port: 8081
 spring:
   mvc:
-    #当出现 404 错误时, 直接抛出异常.
+    #fuck, this file don't support Chinese character.
+    #do not stop 404 error,let's handle by ourselves error message.
     throw-exception-if-no-handler-found: true
   resources:
-    #不要为我们工程中的资源文件建立映射.
+    #do not build map this project.because we implement ourselves unify error message.
     add-mappings: false
   datasource:
     driverClassName: com.mysql.jdbc.Driver
@@ -13,3 +14,6 @@ spring:
     password: 1234
     url: jdbc:mysql://localhost:3306/springbootdemo?useSSL=false&characterEncoding=utf8&serverTimezone=GMT
     type: com.alibaba.druid.pool.DruidDataSource
+
+
+

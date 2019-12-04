@@ -2,8 +2,8 @@ package top.xuxuzhaozhao.demo.controller;
 
 import top.xuxuzhaozhao.demo.core.ret.RetResult;
 import top.xuxuzhaozhao.demo.core.ret.RetResponse;
-import top.xuxuzhaozhao.demo.domain.SystemLog;
-import top.xuxuzhaozhao.demo.service.SystemLogService;
+import top.xuxuzhaozhao.demo.domain.RoleInfo;
+import top.xuxuzhaozhao.demo.service.RoleInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,39 +15,39 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* @Description: SystemLogController类
+* @Description: RoleInfoController类
 * @author xcy
-* @date 2019/12/04 16:09
+* @date 2019/12/04 16:36
 */
 @RestController
-@RequestMapping("/systemLog")
-public class SystemLogController {
+@RequestMapping("/roleInfo")
+public class RoleInfoController {
 
     @Resource
-    private SystemLogService systemLogService;
+    private RoleInfoService roleInfoService;
 
     @PostMapping("/insert")
-    public Object insert(SystemLog systemLog) throws Exception{
-        Integer state = systemLogService.insert(systemLog);
+    public Object insert(RoleInfo roleInfo) throws Exception{
+        Integer state = roleInfoService.insert(roleInfo);
         return RetResponse.makeOKRsp(state);
     }
 
     @PostMapping("/deleteById")
     public Object deleteById(@RequestParam String id) throws Exception {
-        Integer state = systemLogService.deleteById(id);
+        Integer state = roleInfoService.deleteById(id);
         return RetResponse.makeOKRsp(state);
     }
 
     @PostMapping("/update")
-    public Object update(SystemLog systemLog) throws Exception {
-        Integer state = systemLogService.update(systemLog);
+    public Object update(RoleInfo roleInfo) throws Exception {
+        Integer state = roleInfoService.update(roleInfo);
         return RetResponse.makeOKRsp(state);
     }
 
     @PostMapping("/selectById")
     public Object selectById(@RequestParam String id) throws Exception {
-        SystemLog systemLog = systemLogService.selectById(id);
-        return RetResponse.makeOKRsp(systemLog);
+        RoleInfo roleInfo = roleInfoService.selectById(id);
+        return RetResponse.makeOKRsp(roleInfo);
     }
 
     /**
@@ -60,8 +60,8 @@ public class SystemLogController {
     public Object list(@RequestParam(defaultValue = "0") Integer page,
     @RequestParam(defaultValue = "0") Integer size) throws Exception {
         PageHelper.startPage(page, size);
-        List<SystemLog> list = systemLogService.selectAll();
-        PageInfo<SystemLog> pageInfo = new PageInfo<SystemLog>(list);
+        List<RoleInfo> list = roleInfoService.selectAll();
+        PageInfo<RoleInfo> pageInfo = new PageInfo<RoleInfo>(list);
         return RetResponse.makeOKRsp(pageInfo);
     }
 }

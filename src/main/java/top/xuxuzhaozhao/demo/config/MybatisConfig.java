@@ -12,7 +12,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class MybatisConfig {
 
     @Bean

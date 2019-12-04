@@ -37,7 +37,7 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(new Date());
 
     public static void main(String[] args) {
-        genCode("system_log");
+        genCode("role_info");
     }
 
     private static void genCode(String... tableNames) {

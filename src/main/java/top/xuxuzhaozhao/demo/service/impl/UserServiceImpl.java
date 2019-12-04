@@ -1,16 +1,13 @@
 package top.xuxuzhaozhao.demo.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import top.xuxuzhaozhao.demo.core.ret.ServiceException;
 import top.xuxuzhaozhao.demo.core.universal.AbstractService;
-import top.xuxuzhaozhao.demo.dao.IUserDao;
+import top.xuxuzhaozhao.demo.dao.db1.IUserDao;
 import top.xuxuzhaozhao.demo.domain.User;
 import top.xuxuzhaozhao.demo.service.IUserService;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class UserServiceImpl extends AbstractService<User> implements IUserService {
