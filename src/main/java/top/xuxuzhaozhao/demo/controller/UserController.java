@@ -8,6 +8,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
 import top.xuxuzhaozhao.demo.core.ret.RetResponse;
 import top.xuxuzhaozhao.demo.core.ret.ServiceException;
@@ -23,15 +26,18 @@ public class UserController {
     @Resource
     private IUserService userService;
 
-    @ApiOperation(value = "查询用户", notes = "根据用户ID查询用户")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Integer", paramType = "query")
-//    })
-    @GetMapping("/api/user")
-    public Object selectById(@RequestParam String id) {
-        User info = userService.selectById(id);
-        return RetResponse.makeOKRsp(info);
-    }
+@Autowired
+StringRedisTemplate redisTemplate;
+
+@ApiOperation(value = "查询用户", notes = "根据用户ID查询用户")
+@GetMapping("/api/user")
+public Object selectById(@RequestParam String id) {
+    User info = userService.selectById(id);
+
+    ValueOperations ops = redisTemplate.opsForValue();
+    ops.set("名字",info.getUsername());
+    return RetResponse.makeOKRsp(info);
+}
 
     @PostMapping("/api/exception")
     public void testException(@RequestBody User user) {
