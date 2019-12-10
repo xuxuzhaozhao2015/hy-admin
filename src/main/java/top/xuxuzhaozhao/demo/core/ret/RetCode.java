@@ -9,7 +9,13 @@ public enum RetCode {
 
     NOTFOUND(404),
 
-    INTERNAL_SERVER_ERROR(500);
+    INTERNAL_SERVER_ERROR(500),
+
+    /** 未登录 */
+    UNAUTHEN(4401),
+
+    /** 未授权，拒绝访问 */
+    UNAUTHZ(4403);
 
     public int code;
     RetCode(int code) {

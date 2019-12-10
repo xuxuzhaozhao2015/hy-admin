@@ -2,6 +2,8 @@ package top.xuxuzhaozhao.demo.config.webconfig;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +24,18 @@ public class GlobalExceptionResolverConfig {
     @ExceptionHandler(ServiceException.class)
     public void serviceExceptionHandler(HttpServletResponse resp, ServiceException e) {
         RetResult result = RetResult.build().setCode(RetCode.FAIL).setMsg(e.getMessage()).setData(null);
+        responseResult(resp,result);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public void unauthorizedExceptionHandler(HttpServletResponse resp, UnauthorizedException e) {
+        RetResult result = RetResult.build().setCode(RetCode.UNAUTHORIZED).setMsg("用户没有访问权限").setData(null);
+        responseResult(resp,result);
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public void unauthenticatedExceptionHandler(HttpServletResponse resp, UnauthenticatedException e) {
+        RetResult result = RetResult.build().setCode(RetCode.UNAUTHZ).setMsg("用户未登录").setData(null);
         responseResult(resp,result);
     }
 

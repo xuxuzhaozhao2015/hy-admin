@@ -26,3 +26,9 @@ spring:
         max-idle : 10
         max-active : 8
         max-wait : 1ms
+#shiro
+#user is not log in.
+shiro :
+  loginUrl : /shiroUtils/noLogin
+#user have not permission.
+  unauthorizedUrl : /shiroUtils/noAuthorize
