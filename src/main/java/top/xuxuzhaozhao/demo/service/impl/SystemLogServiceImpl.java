@@ -7,6 +7,7 @@ import top.xuxuzhaozhao.demo.core.universal.AbstractService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @Description: SystemLogService接口实现类
@@ -17,4 +18,9 @@ import javax.annotation.Resource;
 public class SystemLogServiceImpl extends AbstractService<SystemLog> implements SystemLogService {
     @Resource
     private SystemLogMapper systemLogMapper;
+
+    @Override
+    public Integer insertByBatch(List<SystemLog> list) {
+        return systemLogMapper.insertByBatch(list);
+    }
 }

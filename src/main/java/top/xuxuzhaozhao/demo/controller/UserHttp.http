@@ -32,6 +32,4 @@ Content-Type: application/json
 POST http://localhost:8081/roleInfo/list
 Content-Type: application/json
 
-{}
-
 ###

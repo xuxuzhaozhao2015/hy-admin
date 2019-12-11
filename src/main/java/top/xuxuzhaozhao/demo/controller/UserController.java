@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.*;
+import top.xuxuzhaozhao.demo.core.aop.AnnotationLog;
 import top.xuxuzhaozhao.demo.core.ret.RetResponse;
 import top.xuxuzhaozhao.demo.core.ret.ServiceException;
 import top.xuxuzhaozhao.demo.domain.User;
@@ -35,6 +36,7 @@ public class UserController {
 
     @ApiOperation(value = "查询用户", notes = "根据用户ID查询用户")
     @GetMapping("/api/user")
+    @AnnotationLog(remark = "查询")
     public Object selectById(@RequestParam String id) {
         User info = userService.selectById(id);
 
