@@ -21,4 +21,7 @@ public class ProjectConstant {
 
     // Mapper插件基础接口的完全限定名
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".core.universal.Mapper";
+
+    // 文件上传根目录
+    public static final String SAVE_FILE_PATH = "F://文件上传//img";
 }
