@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.xuxuzhaozhao.demo.dao.db1.DescribeTableMapper">
+    <select id="selectDescribeTableByName" resultType="top.xuxuzhaozhao.demo.domain.DescribeTable">
+        DESCRIBE ${tableName};
+    </select>
+
+    <select id="selectTableNameData" resultType="java.util.HashMap">
+        select * from ${tableName} order by id desc
+    </select>
+</mapper>

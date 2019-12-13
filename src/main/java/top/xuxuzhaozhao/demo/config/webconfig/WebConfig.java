@@ -5,23 +5,22 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import top.xuxuzhaozhao.demo.core.interceptor.Interceptor1;
 import top.xuxuzhaozhao.demo.core.ret.RetCode;
 import top.xuxuzhaozhao.demo.core.ret.RetResult;
-import top.xuxuzhaozhao.demo.core.ret.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,10 @@ import java.util.Objects;
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
+
+    private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+    private static final String IZATION = "CHUCHEN";
+
     /**
      * 重写json序列化
      */
@@ -48,6 +51,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
         converter.setFastJsonConfig(config);
         converter.setDefaultCharset(StandardCharsets.UTF_8);
         converters.add(converter);
+        logger.info("Json消息转换完成！");
     }
 
     private List<MediaType> getSupportedMediaTypes() {
@@ -70,7 +74,33 @@ public class WebConfig extends WebMvcConfigurationSupport {
         super.addResourceHandlers(registry);
     }
 
-// 独立出来使用GlobalExceptionResolver处理
+    /**
+     * 自定义拦截器：权限控制
+     *
+     * @param registry
+     */
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        // 这里可以填写自定义的拦截器
+        registry.addInterceptor(new Interceptor1() {
+            /**
+             * This implementation always returns {@code true}.
+             *
+             */
+            @Override
+            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+                String ization = request.getHeader("ization");
+                if (IZATION.equals(ization)) return true;
+
+                RetResult result = RetResult.build().setCode(RetCode.UNAUTHORIZED).setMsg("签名认证失败");
+                responseResult(response, result);
+                return false;
+            }
+            // /** 表示所有请求都必须加
+        }).addPathPatterns("/api/selectAll");;
+    }
+
+    // 独立出来使用GlobalExceptionResolver处理
 //    /**
 //     * 重写异常处理逻辑
 //     */
@@ -118,17 +148,18 @@ public class WebConfig extends WebMvcConfigurationSupport {
 //        return result;
 //    }
 //
-//    /**
-//     * @Description: 响应结果
-//     */
-//    private void responseResult(HttpServletResponse response, RetResult<Object> result) {
-//        response.setCharacterEncoding("UTF-8");
-//        response.setHeader("Content-type", "application/json;charset=UTF-8");
-//        response.setStatus(200);
-//        try {
-//            response.getWriter().write(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
-//        } catch (IOException ex) {
-//            //LOGGER.error(ex.getMessage());
-//        }
-//    }
+
+    /**
+     * @Description: 响应结果
+     */
+    private void responseResult(HttpServletResponse response, RetResult result) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setStatus(200);
+        try {
+            response.getWriter().write(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
 }

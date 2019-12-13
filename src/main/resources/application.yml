@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 spring:
   mvc:
     #fuck, this file don't support Chinese character.

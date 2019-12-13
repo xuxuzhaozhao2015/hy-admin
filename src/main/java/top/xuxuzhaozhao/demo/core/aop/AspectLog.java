@@ -19,7 +19,6 @@ import top.xuxuzhaozhao.demo.core.systemlog.SystemLogQueue;
 import top.xuxuzhaozhao.demo.core.util.ApplicationUtils;
 import top.xuxuzhaozhao.demo.domain.SystemLog;
 import top.xuxuzhaozhao.demo.domain.User;
-import top.xuxuzhaozhao.demo.service.SystemLogService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

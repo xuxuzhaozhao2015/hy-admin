@@ -24,6 +24,7 @@ Content-Type: application/json
 
 POST http://localhost:8081/api/selectAll?page=2&size=1
 Content-Type: application/json
+ization: CHUCHEN
 
 {}
 
@@ -31,5 +32,12 @@ Content-Type: application/json
 
 POST http://localhost:8081/roleInfo/list
 Content-Type: application/json
+
+###
+
+POST http://localhost:8081/api/login
+Content-Type: application/x-www-form-urlencoded
+
+userName=名门汇&password=123456
 
 ###
